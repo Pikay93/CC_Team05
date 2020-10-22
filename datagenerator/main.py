@@ -3,7 +3,7 @@ from flask_cors import CORS
 import webServiceStream
 from RandomDealData import *
 import json
-import config
+from Config import establish_connection
 
 
 app = Flask(__name__)
@@ -26,19 +26,18 @@ def stream():
 def sse_stream():
      return webServiceStream.sse_stream()
 
-@app.route("/login", methods=["POST"])
+@app.route('/login', methods=["POST"])
 def login():
     user_request_data = json.loads(request.data.decode('utf-8'))
     username = user_request_data["username"]
     password = user_request_data["password"]
-    if username != 'user1' or password != 'abcxyz':
-        return jsonify({"isLoggedin": False})
-    else:
-        return jsonify({"isLoggedin": True})
+    cnx = establish_connection()
+    isLoggedIn = UserDAO.verifyUser(username, password, cnx)
+    return jsonify({"isLoggedin": isLoggedIn})
 
 @app.route('/isDbRunning')
 def database():
-    if Config.establlish_connection() != None:
+    if establish_connection() != None:
         return jsonify({'isDatabaseUp': True})
     else:
         return jsonify({'isDatabaseUp': False})
