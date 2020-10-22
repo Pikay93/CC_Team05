@@ -5,7 +5,7 @@ cnx = mysql.connector.connect(host = 'localhost', database = 'db_grad_cs_1917', 
 cursor = cnx.cursor()
 
 create_newtable = ("CREATE TABLE deals_stream ("
-                        "deal_id int"
+                    "deal_id int"
 ");")
 
 drop_table = ("DROP TABLE deals_stream")
