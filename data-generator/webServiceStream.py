@@ -5,6 +5,7 @@ import numpy, random
 from datetime import datetime, timedelta
 import json
 from RandomDealData import *
+import mysql.connector
 
 app = Flask(__name__)
 CORS(app)
@@ -44,5 +45,4 @@ def get_time():
     time.sleep(1.0)
     s = time.ctime(time.time())
     return s
-
 
