@@ -1,0 +1,9 @@
+
+use the following credentials to login
+
+run the react on port 3000
+with npm start
+
+
+username user1
+password abcxyz

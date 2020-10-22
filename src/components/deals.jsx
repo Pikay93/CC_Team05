@@ -3,14 +3,13 @@ import React, {Component} from "react";
 class Deals extends Component{
     constructor(props) {
         super(props);
-        this.state = {messages:[]};     // placeholder to hold deals data 
+        this.state = {messages: [], isStreaming:true, buttonText:"Stop"};
+        this.source = null;
     }
 
-    componentDidMount() {
-        const source = new EventSource('http://localhost:8090/deals');
-
-
-        source.addEventListener(
+    startEventSource() {
+        this.source = new EventSource('http://localhost:8090/deals');
+        this.source.addEventListener(
             'connected',
             event => {
                 const message = JSON.parse(event.data);
@@ -25,9 +24,9 @@ class Deals extends Component{
         );
 
 
-        source.addEventListener(   // whenever a new message is received, state is updated
+        this.source.addEventListener(
             'message',
-            event => {                  
+            event => {
                 const message = JSON.parse(event.data);
                 console.log(message);
                 this.setState({
@@ -41,9 +40,14 @@ class Deals extends Component{
                         },
                     ],
                 });
+
             },
             false,
         );
+    }
+
+    componentDidMount() {
+        this.startEventSource();
     }
 
     renderMessages() {
@@ -57,9 +61,20 @@ class Deals extends Component{
     }
 
 
-    render() {                    // render function re rendered every time the state is updated
+    render() {
         return(
             <div>
+                <button onClick={()=>{
+                    if (this.state.isStreaming){
+                        this.source.close();
+                        this.setState({isStreaming:false, messages:[], buttonText:"Start"});
+                    }
+                    else{
+                        this.setState({isStreaming:true, messages:[], buttonText:"Stop"});
+                        this.startEventSource();
+                    }
+
+                }}>{this.state.buttonText}</button>
                 <table>
                     <thead>
                     <tr>

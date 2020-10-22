@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 import Deals from "./components/deals";
+import Auth from "./components/auth";
+
+
 
 class App extends Component {
     constructor(props) {
@@ -7,44 +10,17 @@ class App extends Component {
         this.state = {isLoggedIn:false};
     }
 
+    handleForUpdate(someArg){
+        this.setState({isLoggedIn:true});
+    }
+
     render(){
+        let handleForUpdate =   this.handleForUpdate;
         return (
-        <div>
-            <Deals />
-        </div>
-    );
+            <div>
+                {this.state.isLoggedIn ? <Deals /> : <Auth handleForUpdate = {handleForUpdate.bind(this)}/>  }
+            </div>
+        );
     }
 }
 export default App;
-
-
-// import React from 'react';
-// // import logo from './logo.svg';
-// // import './App.css';
-// import Deals from './components/deals';
-
-// function App() {
-//   return (
-//   <div> 
-//     <Deals />   
-//       {/* 
-//         <div className="App">
-//         <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header> */}
-//     </div>
-//   );
-// }
-
-// export default App;
