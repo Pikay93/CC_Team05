@@ -28,7 +28,6 @@ def client_to_server():
 def index():
     return "webtier service points are running..."
 
-
 @app.route('/login',  methods=["POST"])
 def login_user():
     print(request.data)
@@ -42,7 +41,7 @@ def login_user():
 
 @app.route('/isDbRunning')
 def check_my_database():
-    r = requests.get('http://localhost:8080/checkDB')
+    r = requests.get('http://localhost:8080/isDbRunning')
     return Response(r.iter_lines(chunk_size=1), mimetype="text/json")
 
 def get_message():
