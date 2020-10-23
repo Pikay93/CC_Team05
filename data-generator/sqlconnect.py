@@ -18,7 +18,7 @@ else:
     cnx.close()                                                  
 
 create_newtable = ("CREATE TABLE deals_stream ("
-                        "deal_id int"
+                    "deal_id int"
 ");")
 
 drop_table = ("DROP TABLE deals_stream")

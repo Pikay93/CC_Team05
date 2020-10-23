@@ -1,8 +1,9 @@
-from flask import Flask, render_template, Response
+from flask import Flask, render_template, Response, request
 from flask_sse import sse
 from flask_cors import CORS
 import requests
 import time
+import json
 
 app = Flask(__name__)
 #app.register_blueprint(sse, url_prefix='/stream')
@@ -27,6 +28,22 @@ def client_to_server():
 def index():
     return "webtier service points are running..."
 
+
+@app.route('/login',  methods=["POST"])
+def login_user():
+    print(request.data)
+    user_request_data = json.loads(request.data.decode('utf-8'))
+    username = user_request_data["username"]
+    password = user_request_data["password"]
+    
+    r = requests.post('http://localhost:8080/login',
+                      data=json.dumps({'username': username, "password": password}))
+    return Response(r.iter_lines(chunk_size=1), mimetype="text/json")
+
+@app.route('/isDbRunning')
+def check_my_database():
+    r = requests.get('http://localhost:8080/checkDB')
+    return Response(r.iter_lines(chunk_size=1), mimetype="text/json")
 
 def get_message():
     """this could be any function that blocks until data is ready"""
