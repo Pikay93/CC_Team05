@@ -14,5 +14,6 @@ buy1001 = ("SELECT deal_instrument_id AS 'Instrument ID', instrument_name AS 'In
 cursor.execute(buy1001)
 average_prices = pd.DataFrame(cursor.fetchall(),columns=["Instrument ID","Instrument Name","Deal Type","Average Price (£)"])
 average_prices_json = average_prices.to_json()
+print(average_prices)
 cursor.close() 
 cnx.close()

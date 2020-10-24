@@ -4,6 +4,7 @@ import webServiceStream
 from RandomDealData import *
 import json
 from config import establish_connection
+import UserDAO
 
 
 app = Flask(__name__)

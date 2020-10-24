@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import Deals from "./components/deals";
 import Auth from "./components/auth";
-import CheckDB from "./components/checkDatabase"
-
+import CheckDB from "./components/checkDatabase";
 
 class App extends Component {
     constructor(props) {
@@ -10,7 +9,7 @@ class App extends Component {
         this.state = {isLoggedIn:false};
     }
 
-    handleForUpdate(someArg){
+    handleForUpdate(){
         this.setState({isLoggedIn:true});
     }
 
